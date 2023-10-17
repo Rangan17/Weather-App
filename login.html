@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/login.css">
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Login</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li class="icon">Weather App</li>
+            <li><a href="/home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
+            <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        </ul>
+    </nav>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <div class="check">
+            <h6>Do not have an account?</h6>
+            <button class="btn"><a class="btn btn-sm btn-secondary" href="register">Register</a></button>
+         </div>
+        <p id="result-message"></p>
+    </div>
+    <script >document.addEventListener('DOMContentLoaded', function () {
+        const loginForm = document.getElementById('login-form');
+        const resultMessage = document.getElementById('result-message');
+      
+        loginForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+      
+          const username = document.getElementById('username').value;
+          const password = document.getElementById('password').value;
+      
+          const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `username=${username}&password=${password}`,
+          });
+      
+          const data = await response.text();
+          resultMessage.textContent = data;
+        });
+      });
+      </script>
+</body>
+<style>
+    
+*{
+    padding: 0;
+    margin: 0;
+    font-family: 'Cabin', sans-serif;
+    font-family: 'Kanit', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, rgba(230,3,3,1) 0%, rgba(131,64,64,1) 21%, rgba(68,0,255,1) 100%);
+}
+.check{
+    margin-top: 5px;
+}
+.btn{
+    margin-top: 10px;
+    padding: 4px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.btn a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+.btn:hover {
+    background-color: #5c18e2;
+}
+
+/* Style the navigation bar */
+nav {
+    background-color: whitesmoke;
+    overflow: hidden;
+    display: flex;
+    margin:auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 7vh;
+    width: 96vw;
+}
+
+/* Style the navigation list */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+.icon{
+    padding-top: 12px;
+    color: black;
+    font-weight: bolder;
+    padding-left: 10px;
+
+
+}
+/* Style the navigation items */
+nav li {
+    font-size: 2rem;
+    float: left; /* Float the list items to make them horizontal */
+}
+
+/* Style the navigation links */
+nav a {
+    display: block; /* Display the links as block-level elements */
+    color: blue; /* Text color */
+    text-decoration: none; /* Remove underlines from links */
+    padding: 14px 16px; /* Padding around each link (top and bottom, left and right) */
+}
+
+/* Style the navigation links on hover */
+nav a:hover {
+    background-color: blue; /* Background color when hovered */
+    color: white;
+}
+
+/* Style the icons within the navigation links */
+nav a i {
+    margin-right: 6px; /* Add spacing to the right of the icon */
+}
+
+
+.login-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    margin-top: 123px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 100%;
+
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #5c18e2;
+}
+
+</style>
+</html>

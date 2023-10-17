@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/registration.css">
+    <!-- Include Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div>
+    <nav>
+        <ul>
+            <li class="icon">Weather App</li>
+            <li><a href="/home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/register"><i class="fas fa-user-plus"></i> Register</a></li>
+            <li><a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        </ul>
+    </nav>
+</div>
+    <div class="container">
+        <h2>Registration Form</h2>
+        <form id="registration-form">
+           
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Your Password" required>
+
+            <button type="submit">Register</button>
+        </form>
+        <div class="check">
+            <h6>Already have an account?</h6>
+            <button class="btn"><a class="btn btn-sm btn-secondary" href="login">Login</a></button>
+         </div>
+    </div>
+    <style>
+        
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(90deg, rgba(230,3,3,1) 0%, rgba(131,64,64,1) 21%, rgba(68,0,255,1) 100%);
+}
+.btn{
+    margin-top: 10px;
+    padding: 4px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.btn a{
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+}
+.btn:hover {
+    background-color: #5c18e2;
+}
+/* Style the navigation bar */
+nav {
+    
+    background-color: whitesmoke;
+    overflow: hidden;
+    display: flex;
+    margin:auto;
+    margin-top: 10px;
+    border-radius: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 7vh;
+    width: 96vw;
+
+}
+
+/* Style the navigation list */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+.icon{
+    padding-top: 12px;
+    color: black;
+    font-weight: bolder;
+    padding-left: 10px;
+
+
+}
+/* Style the navigation items */
+nav li {
+    font-size: 2rem;
+    float: left; /* Float the list items to make them horizontal */
+}
+
+/* Style the navigation links */
+nav a {
+    display: block; /* Display the links as block-level elements */
+    color: blue; /* Text color */
+    text-decoration: none; /* Remove underlines from links */
+    padding: 14px 16px; /* Padding around each link (top and bottom, left and right) */
+}
+
+/* Style the navigation links on hover */
+nav a:hover {
+    background-color: blue; /* Background color when hovered */
+    color: white;
+}
+
+/* Style the icons within the navigation links */
+nav a i {
+    margin-right: 6px; /* Add spacing to the right of the icon */
+}
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    width: 80%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+input {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: rgb(47, 137, 210);
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #5c18e2;
+}
+    </style>
+    <script >document.addEventListener('DOMContentLoaded', function () {
+        const registrationForm = document.getElementById('registration-form');
+    
+        registrationForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+    
+            const user = {
+                name,
+                email,
+                password
+            };
+    
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                registrationForm.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Registration failed. Please try again.');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
